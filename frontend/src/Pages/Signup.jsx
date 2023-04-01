@@ -1,5 +1,6 @@
 import React from "react";
 import "../Styles/signup.css";
+import axios from "axios"
 import {
   Flex,
   Box,
@@ -25,7 +26,7 @@ const Signup = () => {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  // ------------handle signup------------------------------------------------------------
   const handleSignup = () => {
     let userData = {
       "first name": firstName,
@@ -34,9 +35,20 @@ const Signup = () => {
       password,
     };
 
-console.log(userData)
+    console.log(userData);
+
+    axios.post("http://localhost:3005/signup",userData)
+    .then((res)=>{
+        let usermsg = res.json()
+        console.log(usermsg)
+    })
+    .catch((err)=>{
+        console.log(err)
+    })
 
   };
+  // -----------------------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------
 
   return (
     <Flex
@@ -113,7 +125,7 @@ console.log(userData)
             </FormControl>
             <Stack spacing={10} pt={2}>
               <Button
-              onClick={handleSignup}
+                onClick={handleSignup}
                 loadingText="Submitting"
                 size="lg"
                 bg={"blue.400"}

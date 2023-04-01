@@ -19,7 +19,7 @@ function Navbar() {
     <nav>
       <div className="logo">
         <img
-          src="https://photos.fliarbi.com/5dfdb0bfd1b18-logo.png"
+          src="https://w7.pngwing.com/pngs/719/725/png-transparent-computer-icons-software-bug-bug-tracking-system-computer-software-pest-control-bug-net-logo-pest-control-silhouette.png"
           alt="logo"
         />
       </div>
