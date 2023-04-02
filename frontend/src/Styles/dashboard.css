@@ -1,21 +1,23 @@
 .dashboard_container {
-  width: 100vw;
+  width: 99vw;
   height: 100vh;
   background-color: aquamarine;
+box-sizing: border-box;
 }
 
 .tasks_parent {
-  width: 80%;
+  width: 85%;
   height: 70%;
   background-color: rgb(192, 170, 170);
 margin: 80px auto;
 display: flex;
 justify-content: space-around;
-box-sizing: border-box;
 
 position: absolute;
-left: 10%;
+left: 8%;
 right: 10%;
+box-sizing: border-box;
+
 }
 .tasks_container {
     width: 22%;
@@ -25,18 +27,27 @@ margin: auto;
 border-radius: 12px;
 }
 .task_heading{
-    width: 80%;
-    height: 30px;
+    width: 85%;
+    height: 40px;
     background-color:blue;
     border-radius: 12px;
 margin:20px auto;    
 color: black;
+/* text-align: center; */
+/* align-items: center; */
+display: flex;
+justify-content: space-between;
+align-items: center;
+font-size: 22px;
+box-sizing: border-box;
+font-weight: bold;
+padding: 5px;
 }
 #critical{
     background-color: rgb(218, 120, 120);
 }
 #major{
-    background-color: rgb(219, 219, 86);
+    background-color: rgb(209, 209, 116);
 }
 #medium{
     background-color: rgb(64, 64, 233);
@@ -44,3 +55,9 @@ color: black;
 #low{
     background-color: rgb(95, 212, 95);
 }
+
+
+
+
+
+
