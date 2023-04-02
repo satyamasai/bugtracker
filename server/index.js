@@ -9,7 +9,7 @@ app.use(express.json());
 app.use(cors());
 
 app.get("/", (req, res) => {
-  res.send("Welcome to ecmagico app");
+  res.send("Welcome to bug-tracker app");
 });
 
 app.use("/user", userController);
