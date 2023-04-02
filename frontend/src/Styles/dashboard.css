@@ -1,0 +1,46 @@
+.dashboard_container {
+  width: 100vw;
+  height: 100vh;
+  background-color: aquamarine;
+}
+
+.tasks_parent {
+  width: 80%;
+  height: 70%;
+  background-color: rgb(192, 170, 170);
+margin: 80px auto;
+display: flex;
+justify-content: space-around;
+box-sizing: border-box;
+
+position: absolute;
+left: 10%;
+right: 10%;
+}
+.tasks_container {
+    width: 22%;
+    height: 80%;
+    background-color: rgb(132, 132, 172);
+margin: auto;
+border-radius: 12px;
+}
+.task_heading{
+    width: 80%;
+    height: 30px;
+    background-color:blue;
+    border-radius: 12px;
+margin:20px auto;    
+color: black;
+}
+#critical{
+    background-color: rgb(218, 120, 120);
+}
+#major{
+    background-color: rgb(219, 219, 86);
+}
+#medium{
+    background-color: rgb(64, 64, 233);
+}
+#low{
+    background-color: rgb(95, 212, 95);
+}
