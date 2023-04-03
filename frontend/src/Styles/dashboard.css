@@ -9,7 +9,7 @@ box-sizing: border-box;
   width: 85%;
   height: 70%;
   background-color: rgb(192, 170, 170);
-margin: 80px auto;
+margin: 40px auto;
 display: flex;
 justify-content: space-around;
 

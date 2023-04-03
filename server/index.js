@@ -4,6 +4,7 @@ const app = express();
 const cors = require("cors");
 const { connection } = require("./Config/db");
 const { userController } = require("./Routes/User.route");
+const { bugController } = require("./Routes/bug.route");
 // const { adminController } = require("./Routes/Admin.route");
 app.use(express.json());
 app.use(cors());
@@ -13,6 +14,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/user", userController);
+app.use("/", bugController);
 
 app.listen(8080, async () => {
   try {

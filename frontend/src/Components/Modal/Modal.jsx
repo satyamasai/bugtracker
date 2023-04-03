@@ -49,7 +49,7 @@ function InitialFocus() {
             </ModalBody>
   
             <ModalFooter>
-              <Button colorScheme='blue' mr={3}>
+              <Button onClick={handleBug } colorScheme='blue' mr={3}>
                 Save
               </Button>
               <Button onClick={onClose}>Cancel</Button>

@@ -5,7 +5,7 @@ import InitialFocus from "../Components/Modal/Modal";
 
 const Dashboard = () => {
   const handleAddTasks = () => {
-    console.log("hat");
+   
   };
 
   return (
@@ -20,7 +20,7 @@ const Dashboard = () => {
         <div className="major_tasks tasks_container">
           <div id="major" className="task_heading ">
             <h1>Major severity</h1>
-            <InitialFocus />
+            <InitialFocus  />
           </div>
         </div>
         <div className="medium_tasks tasks_container">
