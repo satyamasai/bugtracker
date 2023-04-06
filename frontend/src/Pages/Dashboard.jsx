@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "../Styles/dashboard.css";
-import { DragDropContext ,Droppable ,Draggable} from "react-beautiful-dnd";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import axios from "axios";
 import { FcAddDatabase } from "react-icons/fc";
 import InitialFocus from "../Components/Modal/Modal";
 
 const Dashboard = () => {
-  const [bugname, setBugname] = useState("");
+  // const [bugname, setBugname] = useState("");
   const [allBugs, setAllBugs] = useState("");
   let criticalBugs;
   let majorBugs;
@@ -30,7 +30,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     getBugs();
-  }, [bugname]);
+  }, []);
 
   // -------------adding bug in database--------------------------
   const handleBug = (severity, bugname) => {
@@ -38,62 +38,85 @@ const Dashboard = () => {
     axios
       .post("http://localhost:8080/addbug", bugData)
 
-      .then((res) => console.log(res))
+      .then((res) => {
+        console.log(res);
+        getBugs();
+      })
       .catch((err) => console.log(err));
   };
   // ------------- setting bugs in there ,context--------------------------
   console.log(allBugs);
   if (allBugs) {
     criticalBugs = allBugs?.filter((item) => {
-      return item.severity == "critical";
+      return item.severity === "critical";
     });
     // major bugs------------------
     majorBugs = allBugs?.filter((item) => {
-      return item.severity == "major";
+      return item.severity === "major";
     });
     mediumBugs = allBugs?.filter((item) => {
-      return item.severity == "medium";
+      return item.severity === "medium";
     });
     lowBugs = allBugs?.filter((item) => {
-      return item.severity == "low";
+      return item.severity === "low";
     });
 
     // console.log(criticalBugs,"CB")
   }
 
   // -----------------------------------------------------------------------
+
+  // ------------------for drag and drop--------------------------------
+  const onDragEnd = (result) => {
+    if (!result.destination) return;
+    const newItems = Array.from(allBugs);
+    const [removed] = newItems.splice(result.source.index, 1);
+    newItems.splice(result.destination.index, 0, removed);
+    setAllBugs(newItems);
+  };
+
   return (
     <div className="dashboard_container">
-      <DragDropContext>
+      <DragDropContext onDragEnd={onDragEnd}>
         <div className="tasks_parent">
-         
-              <div className=" tasks_container">
-                <div id="critical" className="task_heading">
-                  <h1>Critical severity</h1>
-                  <InitialFocus severity={"critical"} handleBug={handleBug} />
-                </div>
-                <Droppable droppableId="droppable-1">
-                {() => (
-                <div className="critical_tasks">
-                  {criticalBugs?.map((item) => (
-                    
-                    <Draggable>
-                    {(provided)=>(
-                      <div key={item.id} className="bugdiv">
-                      {item.bugname}
-                      </div>
-
-                    )
-
-                    }
-                    
+          <div className=" tasks_container">
+            <div id="critical" className="task_heading">
+              <h1>Critical severity</h1>
+              <InitialFocus severity={"critical"} handleBug={handleBug} />
+            </div>
+            <Droppable droppableId="droppable-1">
+              {(provided) => (
+                <div
+                  ref={provided.innerRef}
+                  {...provided.droppableProps}
+                  className="critical_tasks"
+                >
+                  {criticalBugs?.map((item, index) => (
+                    <Draggable
+                      key={item.id}
+                      draggableId={item.id}
+                      index={index}
+                    >
+                      {(provided) => (
+                        <div
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                          draggableId={item.id}
+                          index={index}
+                         
+                          className="bugdiv"
+                        >
+                          {item.bugname}
+                        </div>
+                      )}
                     </Draggable>
                   ))}
                 </div>
-                )}
-                </Droppable>
-              </div>
-          
+              )}
+            </Droppable>
+          </div>
+
           <div className="major_tasks tasks_container">
             <div id="major" className="task_heading ">
               <h1>Major severity</h1>

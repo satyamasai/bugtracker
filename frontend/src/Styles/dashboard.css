@@ -74,6 +74,33 @@ color: black;
 
 
 
+@media all and (min-width:80px) and (max-width:780px){
+    .dashboard_container {
+        width: 99vw;
+        /* height: 100vh; */
+        background-color: aquamarine;
+      /* box-sizing: border-box; */
+      }
+    .tasks_parent {
+        width: 85%;
+        /* height: 70%; */
+        background-color: rgb(185, 22, 22);
+      margin: 40px auto;
+     display: grid;
+      gap: 10px;
+    
+ 
+      
+      }
 
+      .tasks_container {
+        width: 280px;
+        height: auto;
+        background-color: rgb(108, 108, 240);
+    margin: auto;
+    border-radius: 12px;
+    }
+
+}
 
 

@@ -15,12 +15,12 @@ import {
 import React, { useState } from "react";
 import { FcAddDatabase } from "react-icons/fc";
 
-function InitialFocus({ handleBug ,severity}) {
+function InitialFocus({ handleBug, severity }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [bugname,setBugname]= useState('');
+  const [bugname, setBugname] = useState("");
   const initialRef = React.useRef(null);
   const finalRef = React.useRef(null);
-// console.log(initialRef)
+  // console.log(initialRef)
   return (
     <>
       <button onClick={onOpen}>
@@ -40,12 +40,24 @@ function InitialFocus({ handleBug ,severity}) {
           <ModalBody pb={6}>
             <FormControl>
               <FormLabel>Bug</FormLabel>
-              <Input value={bugname} onChange={(e)=>setBugname(e.target.value)} ref={initialRef} placeholder="Write Bug name" />
+              <Input
+                value={bugname}
+                onChange={(e) => setBugname(e.target.value)}
+                ref={initialRef}
+                placeholder="Write Bug name"
+              />
             </FormControl>
           </ModalBody>
 
           <ModalFooter>
-            <Button   onClick={()=>{handleBug(severity, bugname); onClose();}} colorScheme="blue" mr={3}>
+            <Button
+              onClick={() => {
+                handleBug(severity, bugname);
+                onClose();
+              }}
+              colorScheme="blue"
+              mr={3}
+            >
               Save
             </Button>
             <Button onClick={onClose}>Cancel</Button>
