@@ -19,7 +19,7 @@ function Navbar() {
     <nav>
       <div className="logo">
         <img
-          src="https://w7.pngwing.com/pngs/719/725/png-transparent-computer-icons-software-bug-bug-tracking-system-computer-software-pest-control-bug-net-logo-pest-control-silhouette.png"
+          src="https://static.vecteezy.com/system/resources/previews/006/730/439/original/ladybug-character-illustration-cartoon-ladybug-isolated-on-white-background-free-vector.jpg"
           alt="logo"
         />
       </div>

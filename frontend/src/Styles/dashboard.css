@@ -2,105 +2,139 @@
   width: 99vw;
   height: 100vh;
   background-color: aquamarine;
-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 .tasks_parent {
   width: 85%;
-  height: 70%;
+  /* height: 70%; */
+  height: auto;
   background-color: rgb(192, 170, 170);
-margin: 40px auto;
-display: flex;
-justify-content: space-around;
+  margin: 40px auto;
+  display: flex;
+  justify-content: space-around;
 
-position: absolute;
-left: 8%;
-right: 10%;
-box-sizing: border-box;
-
+  position: absolute;
+  left: 8%;
+  right: 10%;
+  box-sizing: border-box;
+  padding: 10px;
 }
 .tasks_container {
-    width: 22%;
-    height: 80%;
-    background-color: rgb(132, 132, 172);
-margin: auto;
-border-radius: 12px;
+  width: 22%;
+  /* height: 80%; */
+  height: auto;
+  background-color: rgb(132, 132, 172);
+  margin: auto;
+  border-radius: 12px;
 }
-.task_heading{
+.task_heading {
+  width: 85%;
+  height: 40px;
+  background-color: blue;
+  border-radius: 12px;
+  margin: 20px auto;
+  color: black;
+  /* text-align: center; */
+  /* align-items: center; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 22px;
+  box-sizing: border-box;
+  font-weight: bold;
+  padding: 5px;
+}
+#critical {
+  background-color: rgb(218, 120, 120);
+}
+#major {
+  background-color: rgb(209, 209, 116);
+}
+#medium {
+  background-color: rgb(64, 64, 233);
+}
+#low {
+  background-color: rgb(95, 212, 95);
+}
+
+.critical_tasks {
+  width: 95%;
+  /* border: 1px solid red; */
+  margin: auto;
+  display: flex;
+  flex-direction: column-reverse;
+}
+.bugdiv {
+  width: 95%;
+  /* height: 34px; */
+  height: auto;
+  background-color: rgb(236, 208, 208);
+  border-radius: 10px;
+  margin: 10px auto;
+  color: black;
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+  align-items: center;
+  padding: 5px;
+}
+.bugdiv > div {
+  width: 80%;
+  /* border: 1px solid green; */
+}
+
+@media all and (min-width: 80px) and (max-width: 780px) {
+  .dashboard_container {
+    width: 99vw;
+    height: auto;
+    background-color: aquamarine;
+    /* box-sizing: border-box; */
+  }
+  .tasks_parent {
     width: 85%;
-    height: 40px;
-    background-color:blue;
-    border-radius: 12px;
-margin:20px auto;    
-color: black;
-/* text-align: center; */
-/* align-items: center; */
-display: flex;
-justify-content: space-between;
-align-items: center;
-font-size: 22px;
-box-sizing: border-box;
-font-weight: bold;
-padding: 5px;
-}
-#critical{
-    background-color: rgb(218, 120, 120);
-}
-#major{
-    background-color: rgb(209, 209, 116);
-}
-#medium{
-    background-color: rgb(64, 64, 233);
-}
-#low{
-    background-color: rgb(95, 212, 95);
-}
-
-.critical_tasks{
-    width: 95%;
-    /* border: 1px solid red; */
-    margin: auto;
-    display: flex;
-    flex-direction: column-reverse;
-}
-.bugdiv{
-    width: 95%;
-    height: 34px;
-    background-color:rgb(235, 146, 146);
+    height: auto;
+    background-color: rgb(185, 22, 22);
+    margin: 40px auto;
+    display: grid;
+    gap: 10px;
+    padding: 20px;
     border-radius: 10px;
-margin:20px auto;    
-color: black;
-}
+  }
 
-
-
-@media all and (min-width:80px) and (max-width:780px){
-    .dashboard_container {
-        width: 99vw;
-        /* height: 100vh; */
-        background-color: aquamarine;
-      /* box-sizing: border-box; */
-      }
-    .tasks_parent {
-        width: 85%;
-        /* height: 70%; */
-        background-color: rgb(185, 22, 22);
-      margin: 40px auto;
-     display: grid;
-      gap: 10px;
-    
- 
-      
-      }
-
-      .tasks_container {
-        width: 280px;
-        height: auto;
-        background-color: rgb(108, 108, 240);
+  .tasks_container {
+    width: 280px;
+    height: auto;
+    background-color: rgb(108, 108, 240);
     margin: auto;
     border-radius: 12px;
-    }
-
+  }
 }
 
+@media all and (min-width: 781px) and (max-width: 1080px) {
+  .dashboard_container {
+    width: 99vw;
+    height: auto;
+    background-color: aquamarine;
+    /* box-sizing: border-box; */
+  }
+  .tasks_parent {
+    width: 85%;
+    height: auto;
+    background-color: rgb(247, 129, 237);
+    margin: 40px auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(auto, auto);
+    gap: 10px;
+    padding: 20px;
+  }
 
+  .tasks_container {
+    width: 280px;
+    height: auto;
+    background-color: rgb(108, 108, 240);
+    margin: auto;
+    border-radius: 12px;
+  }
+}

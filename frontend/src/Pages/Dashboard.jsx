@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import "../Styles/dashboard.css";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import axios from "axios";
-import { FcAddDatabase } from "react-icons/fc";
+// import {BsFillTrash3Fill } from "react-icons/fc";
+import { BsFillTrash3Fill } from "react-icons/bs";
 import InitialFocus from "../Components/Modal/Modal";
 
 const Dashboard = () => {
@@ -68,11 +69,20 @@ const Dashboard = () => {
 
   // ------------------for drag and drop--------------------------------
   const onDragEnd = (result) => {
+    console.log(result, "result");
     if (!result.destination) return;
     const newItems = Array.from(allBugs);
     const [removed] = newItems.splice(result.source.index, 1);
     newItems.splice(result.destination.index, 0, removed);
     setAllBugs(newItems);
+  };
+
+  // ---------------------------------------------------
+
+  // -------handle delete bugg--------------
+  const handleDeleteBug = () => {
+    console.log("bug deleted");
+    alert("bug resolved");
   };
 
   return (
@@ -93,8 +103,8 @@ const Dashboard = () => {
                 >
                   {criticalBugs?.map((item, index) => (
                     <Draggable
-                      key={item.id}
-                      draggableId={item.id}
+                      draggableId={item._id}
+                      key={item._id}
                       index={index}
                     >
                       {(provided) => (
@@ -102,16 +112,17 @@ const Dashboard = () => {
                           ref={provided.innerRef}
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
-                          draggableId={item.id}
+                          draggableId={item._id}
                           index={index}
-                         
                           className="bugdiv"
                         >
-                          {item.bugname}
+                          <div>{item.bugname}</div>
+                          <BsFillTrash3Fill onClick={handleDeleteBug} />
                         </div>
                       )}
                     </Draggable>
                   ))}
+                  {provided.placeholder}
                 </div>
               )}
             </Droppable>
