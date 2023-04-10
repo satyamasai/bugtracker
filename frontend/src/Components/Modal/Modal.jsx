@@ -53,6 +53,7 @@ function InitialFocus({ handleBug, severity }) {
             <Button
               onClick={() => {
                 handleBug(severity, bugname);
+                setBugname("")
                 onClose();
               }}
               colorScheme="blue"

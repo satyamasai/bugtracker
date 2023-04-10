@@ -33,6 +33,7 @@ const Dashboard = () => {
   }, []);
 
   //---------------adding bug in database----------------------------------------------------------------------
+  //---------------adding bug in database----------------------------------------------------------------------
   const handleBug = (severity, bugname) => {
     const bugData = { severity, bugname };
 
@@ -49,6 +50,7 @@ const Dashboard = () => {
           duration: 9000,
           isClosable: true,
         });
+        bugname=""
         getBugs();
       })
       .catch((err) => {
@@ -102,6 +104,7 @@ const Dashboard = () => {
     setCriticalBugs(items);
     // console.log(users);
   };
+  // ---------------------------------handle drag end for major bug---------------------
 
   const handleDragEndMj = (result) => {
     if (!result.destination) {
@@ -114,7 +117,7 @@ const Dashboard = () => {
     setMajorBugs(items);
     // console.log(users);
   };
-
+// ---------------------------------handle drag end for medium bug---------------------
   const handleDragEndMd = (result) => {
     if (!result.destination) {
       return;
@@ -193,6 +196,7 @@ const Dashboard = () => {
                             <h2>{item.bugname}</h2>
                           </div>
                           <BsFillTrash3Fill
+                          id="deleteIcon"
                             onClick={() => handleDeleteBug(item._id)}
                           />
                         </Box>
