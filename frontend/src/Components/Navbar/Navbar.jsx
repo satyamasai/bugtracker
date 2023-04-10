@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import "./Navbar.css";
 import { FaAlignJustify, FaTimes } from "react-icons/fa";
 import { Link } from "react-router-dom";
-
+import { Button, useColorMode } from "@chakra-ui/react";
 
 function Navbar() {
+  const { colorMode, toggleColorMode } = useColorMode()
+
   const [toggleMenu, setToggleMenu] = useState(false);
  
 
@@ -40,6 +42,9 @@ function Navbar() {
    
        
       </ul>
+      <Button size="sm" colorScheme="blue" onClick={toggleColorMode}>
+      Toggle {colorMode === 'light' ? 'Dark' : 'Light'}
+    </Button>
       <div className="menu-icon" onClick={handleToggle}>
         {toggleMenu ? <FaTimes /> : <FaAlignJustify />}
       </div>

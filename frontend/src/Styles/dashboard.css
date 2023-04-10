@@ -1,7 +1,7 @@
 .dashboard_container {
   width: 99vw;
   height: 100vh;
-  background-color: aquamarine;
+  /* background-color: aquamarine; */
   box-sizing: border-box;
 }
 
@@ -9,7 +9,7 @@
   width: 85%;
   /* height: 70%; */
   height: auto;
-  background-color: rgb(250, 164, 164);
+  /* background-color: rgb(83, 74, 74); */
   margin: 40px auto;
   display: flex;
   justify-content: space-around;
@@ -25,10 +25,11 @@
   width: 22%;
   /* height: 80%; */
   height: auto;
-  background-color: rgb(132, 132, 172);
+  /* background-color: whitesmoke; */
   /* margin: auto; */
   border-radius: 12px;
   border: 3px solid black;
+  border-bottom: white;
 }
 .task_heading {
   width: 85%;
@@ -48,16 +49,16 @@
   padding: 5px;
 }
 #critical {
-  background-color: rgb(218, 120, 120);
+  background-color: rgb(241, 86, 86);
 }
 #major {
-  background-color: rgb(209, 209, 116);
+  background-color:rgb(233, 233, 105);
 }
 #medium {
-  background-color: rgb(64, 64, 233);
+  background-color: rgb(110, 110, 240);
 }
 #low {
-  background-color: rgb(95, 212, 95);
+  background-color: rgb(96, 202, 96);
 }
 
 .critical_tasks {
@@ -72,10 +73,10 @@
   width: 95%;
   /* height: 34px; */
   height: auto;
-  background-color: rgb(236, 208, 208);
+  /* background-color: rgb(236, 208, 208); */
   border-radius: 10px;
   margin: 10px auto;
-  color: black;
+  /* color: black; */
   display: flex;
   justify-content: space-around;
   text-align: center;

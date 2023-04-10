@@ -5,7 +5,7 @@ import axios from "axios";
 // import {BsFillTrash3Fill } from "react-icons/fc";
 import { BsFillTrash3Fill } from "react-icons/bs";
 import InitialFocus from "../Components/Modal/Modal";
-import { useToast } from "@chakra-ui/react";
+import { Box, useToast } from "@chakra-ui/react";
 
 const Dashboard = () => {
   const toast = useToast();
@@ -181,7 +181,8 @@ const Dashboard = () => {
                       index={index}
                     >
                       {(provided) => (
-                        <div
+                        <Box
+                        bg="red.300"
                           className="bugdiv"
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
@@ -194,7 +195,7 @@ const Dashboard = () => {
                           <BsFillTrash3Fill
                             onClick={() => handleDeleteBug(item._id)}
                           />
-                        </div>
+                        </Box>
                       )}
                     </Draggable>
                   ))}
@@ -227,7 +228,7 @@ const Dashboard = () => {
                       index={index}
                     >
                       {(provided) => (
-                        <div
+                        <Box bg="yellow.600"
                           className="bugdiv"
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
@@ -240,7 +241,7 @@ const Dashboard = () => {
                           <BsFillTrash3Fill
                             onClick={() => handleDeleteBug(item._id)}
                           />
-                        </div>
+                        </Box>
                       )}
                     </Draggable>
                   ))}
@@ -270,7 +271,8 @@ const Dashboard = () => {
                       index={index}
                     >
                       {(provided) => (
-                        <div
+                        <Box
+                        bg="blue.400"
                           className="bugdiv"
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
@@ -283,7 +285,7 @@ const Dashboard = () => {
                           <BsFillTrash3Fill
                             onClick={() => handleDeleteBug(item._id)}
                           />
-                        </div>
+                        </Box>
                       )}
                     </Draggable>
                   ))}
@@ -313,7 +315,8 @@ const Dashboard = () => {
                       index={index}
                     >
                       {(provided) => (
-                        <div
+                        <Box
+                        bg="green.400"
                           className="bugdiv"
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
@@ -326,7 +329,7 @@ const Dashboard = () => {
                           <BsFillTrash3Fill
                             onClick={() => handleDeleteBug(item._id)}
                           />
-                        </div>
+                        </Box>
                       )}
                     </Draggable>
                   ))}
