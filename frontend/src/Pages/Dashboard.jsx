@@ -1,22 +1,41 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import "../Styles/dashboard.css";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import axios from "axios";
 // import {BsFillTrash3Fill } from "react-icons/fc";
 import { BsFillTrash3Fill } from "react-icons/bs";
 import InitialFocus from "../Components/Modal/Modal";
-
+let list = [
+  {
+    bugname: "king",
+    severity: "critical",
+  },
+  {
+    bugname: "queen",
+    severity: "critical",
+  },
+  {
+    bugname: "rancho",
+    severity: "critical",
+  },
+  {
+    bugname: "virus",
+    severity: "critical",
+  },
+  {
+    bugname: "farhan",
+    severity: "critical",
+  },
+];
 const Dashboard = () => {
   // const [bugname, setBugname] = useState("");
-  const [allBugs, setAllBugs] = useState("");
-  let criticalBugs;
-  let majorBugs;
-  let mediumBugs;
-  let lowBugs;
+  const [allBugs, setAllBugs] = useState([]);
+  const [criticalBugs, setCriticalBugs] = useState([]);
+
   // const [criticalBugs,setCriticalBugs]= useState('')
-  // const [majorBugs,setMajorBugs]= useState('')
-  // const [mediumBugs,setMediumBugs]= useState('')
-  // const [lowBugs,setLowBugs]= useState('')
+  const [majorBugs, setMajorBugs] = useState([]);
+  const [mediumBugs, setMediumBugs] = useState([]);
+  const [lowBugs, setLowBugs] = useState([]);
   // const[s,setBugname]=useState('')
   // -------------------fetching bugs from database-----------------
 
@@ -40,41 +59,47 @@ const Dashboard = () => {
       .post("http://localhost:8080/addbug", bugData)
 
       .then((res) => {
-        console.log(res);
         getBugs();
       })
       .catch((err) => console.log(err));
   };
   // ------------- setting bugs in there ,context--------------------------
-  console.log(allBugs);
-  if (allBugs) {
-    criticalBugs = allBugs?.filter((item) => {
+  // console.log(allBugs);
+  useEffect(() => {
+    let cb = allBugs?.filter((item) => {
       return item.severity === "critical";
     });
+    setCriticalBugs(cb);
+
     // major bugs------------------
-    majorBugs = allBugs?.filter((item) => {
+    let mb = allBugs?.filter((item) => {
       return item.severity === "major";
     });
-    mediumBugs = allBugs?.filter((item) => {
+    setMajorBugs(mb);
+
+    // medium bugs------------------
+    let medb = allBugs?.filter((item) => {
       return item.severity === "medium";
     });
-    lowBugs = allBugs?.filter((item) => {
+    setMediumBugs(medb);
+
+    // low bugs------------------
+    let lb = allBugs?.filter((item) => {
       return item.severity === "low";
     });
-
-    // console.log(criticalBugs,"CB")
-  }
+    setLowBugs(lb);
+  }, [allBugs]);
 
   // -----------------------------------------------------------------------
 
   // ------------------for drag and drop--------------------------------
-  const onDragEnd = (result) => {
-    console.log(result, "result");
-    if (!result.destination) return;
-    const newItems = Array.from(allBugs);
-    const [removed] = newItems.splice(result.source.index, 1);
-    newItems.splice(result.destination.index, 0, removed);
-    setAllBugs(newItems);
+  const handleDragEnd = (result) => {
+    const items = Array.from(criticalBugs);
+    const [recordedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, recordedItem);
+
+    setCriticalBugs(items);
+    // console.log(users);
   };
 
   // ---------------------------------------------------
@@ -87,36 +112,37 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard_container">
-      <DragDropContext onDragEnd={onDragEnd}>
-        <div className="tasks_parent">
-          <div className=" tasks_container">
-            <div id="critical" className="task_heading">
-              <h1>Critical severity</h1>
-              <InitialFocus severity={"critical"} handleBug={handleBug} />
-            </div>
-            <Droppable droppableId="droppable-1">
+      <div className="tasks_parent">
+        <div className=" tasks_container">
+          <div id="critical" className="task_heading">
+            <h1>Critical severity</h1>
+            <InitialFocus severity={"critical"} handleBug={handleBug} />
+          </div>
+          <DragDropContext onDragEnd={handleDragEnd}>
+            <Droppable droppableId="bugs">
               {(provided) => (
                 <div
-                  ref={provided.innerRef}
+                  className="bugs"
                   {...provided.droppableProps}
-                  className="critical_tasks"
+                  ref={provided.innerRef}
                 >
                   {criticalBugs?.map((item, index) => (
                     <Draggable
-                      draggableId={item._id}
-                      key={item._id}
+                      key={item.bugname}
+                      draggableId={item.bugname}
                       index={index}
                     >
                       {(provided) => (
                         <div
-                          ref={provided.innerRef}
+                          className="bugdiv"
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
-                          draggableId={item._id}
-                          index={index}
-                          className="bugdiv"
+                          ref={provided.innerRef}
                         >
-                          <div>{item.bugname}</div>
+                          <p> ID: {item.id}</p>
+                          <div>
+                            <h2>{item.bugname}</h2>
+                          </div>
                           <BsFillTrash3Fill onClick={handleDeleteBug} />
                         </div>
                       )}
@@ -126,52 +152,52 @@ const Dashboard = () => {
                 </div>
               )}
             </Droppable>
+          </DragDropContext>
+        </div>
+
+        <div className="major_tasks tasks_container">
+          <div id="major" className="task_heading ">
+            <h1>Major severity</h1>
+            <InitialFocus severity={"major"} handleBug={handleBug} />
           </div>
 
-          <div className="major_tasks tasks_container">
-            <div id="major" className="task_heading ">
-              <h1>Major severity</h1>
-              <InitialFocus severity={"major"} handleBug={handleBug} />
-            </div>
-
-            <div className="critical_tasks">
-              {majorBugs?.map((item) => (
-                <div key={item.id} className="bugdiv">
-                  {item.bugname}
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="medium_tasks tasks_container">
-            <div id="medium" className="task_heading">
-              <h1>Medium severity</h1>
-              <InitialFocus severity={"medium"} handleBug={handleBug} />
-            </div>
-
-            <div className="critical_tasks">
-              {mediumBugs?.map((item) => (
-                <div key={item.id} className="bugdiv">
-                  {item.bugname}
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="low_tasks tasks_container">
-            <div id="low" className="task_heading">
-              <h1>Low severity</h1>
-              <InitialFocus severity={"low"} handleBug={handleBug} />
-            </div>
-
-            <div className="critical_tasks">
-              {lowBugs?.map((item) => (
-                <div key={item.id} className="bugdiv">
-                  {item.bugname}
-                </div>
-              ))}
-            </div>
+          <div className="critical_tasks">
+            {majorBugs?.map((item) => (
+              <div key={item.id} className="bugdiv">
+                {item.bugname}
+              </div>
+            ))}
           </div>
         </div>
-      </DragDropContext>
+        <div className="medium_tasks tasks_container">
+          <div id="medium" className="task_heading">
+            <h1>Medium severity</h1>
+            <InitialFocus severity={"medium"} handleBug={handleBug} />
+          </div>
+
+          <div className="critical_tasks">
+            {mediumBugs?.map((item) => (
+              <div key={item.id} className="bugdiv">
+                {item.bugname}
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="low_tasks tasks_container">
+          <div id="low" className="task_heading">
+            <h1>Low severity</h1>
+            <InitialFocus severity={"low"} handleBug={handleBug} />
+          </div>
+
+          <div className="critical_tasks">
+            {lowBugs?.map((item) => (
+              <div key={item.id} className="bugdiv">
+                {item.bugname}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

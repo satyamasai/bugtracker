@@ -4,6 +4,7 @@ import Dashboard from './Dashboard'
 import Home from './Home'
 import Login from './Login'
 import Signup from './Signup'
+import DragPage from './DragPage'
 
 const AllRoutes = () => {
   return (
@@ -12,6 +13,9 @@ const AllRoutes = () => {
   <Route path='/signup' element={<Signup/>} />
   <Route path='/login' element={<Login/>} />
   <Route path='/mydashboard' element={<Dashboard/>} />
+  <Route path='/drager' element={<DragPage/>} />
+  
+
   
   </Routes>
   )
