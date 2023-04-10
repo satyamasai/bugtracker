@@ -5,38 +5,18 @@ import axios from "axios";
 // import {BsFillTrash3Fill } from "react-icons/fc";
 import { BsFillTrash3Fill } from "react-icons/bs";
 import InitialFocus from "../Components/Modal/Modal";
-let list = [
-  {
-    bugname: "king",
-    severity: "critical",
-  },
-  {
-    bugname: "queen",
-    severity: "critical",
-  },
-  {
-    bugname: "rancho",
-    severity: "critical",
-  },
-  {
-    bugname: "virus",
-    severity: "critical",
-  },
-  {
-    bugname: "farhan",
-    severity: "critical",
-  },
-];
+import { useToast } from "@chakra-ui/react";
+
 const Dashboard = () => {
+  const toast = useToast();
   // const [bugname, setBugname] = useState("");
   const [allBugs, setAllBugs] = useState([]);
   const [criticalBugs, setCriticalBugs] = useState([]);
-
-  // const [criticalBugs,setCriticalBugs]= useState('')
   const [majorBugs, setMajorBugs] = useState([]);
   const [mediumBugs, setMediumBugs] = useState([]);
   const [lowBugs, setLowBugs] = useState([]);
-  // const[s,setBugname]=useState('')
+  // const [totalCount, setTotalCount] = useState(allBugs[allBugs.length-1]?.id);
+
   // -------------------fetching bugs from database-----------------
 
   const getBugs = () => {
@@ -52,16 +32,34 @@ const Dashboard = () => {
     getBugs();
   }, []);
 
-  // -------------adding bug in database--------------------------
+  //---------------adding bug in database----------------------------------------------------------------------
   const handleBug = (severity, bugname) => {
     const bugData = { severity, bugname };
+
     axios
       .post("http://localhost:8080/addbug", bugData)
 
       .then((res) => {
+        console.log(res.data);
+        // setTotalCount(((++allBugs[allBugs.length-1].id)))
+        toast({
+          title: "Alert",
+          description: `${res.data.msg}`,
+          status: "success",
+          duration: 9000,
+          isClosable: true,
+        });
         getBugs();
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        toast({
+          title: "Alert",
+          status: err.status,
+          description: err.response.data.msg,
+          isClosable: true,
+        });
+      });
   };
   // ------------- setting bugs in there ,context--------------------------
   // console.log(allBugs);
@@ -93,7 +91,10 @@ const Dashboard = () => {
   // -----------------------------------------------------------------------
 
   // ------------------for drag and drop--------------------------------
-  const handleDragEnd = (result) => {
+  const handleDragEndCr = (result) => {
+    if (!result.destination) {
+      return;
+    }
     const items = Array.from(criticalBugs);
     const [recordedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, recordedItem);
@@ -102,12 +103,59 @@ const Dashboard = () => {
     // console.log(users);
   };
 
-  // ---------------------------------------------------
+  const handleDragEndMj = (result) => {
+    if (!result.destination) {
+      return;
+    }
+    const items = Array.from(majorBugs);
+    const [recordedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, recordedItem);
 
-  // -------handle delete bugg--------------
-  const handleDeleteBug = () => {
-    console.log("bug deleted");
-    alert("bug resolved");
+    setMajorBugs(items);
+    // console.log(users);
+  };
+
+  const handleDragEndMd = (result) => {
+    if (!result.destination) {
+      return;
+    }
+    const items = Array.from(mediumBugs);
+    const [recordedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, recordedItem);
+
+    setMediumBugs(items);
+    // console.log(users);
+  };
+
+  const handleDragEndLw = (result) => {
+    if (!result.destination) {
+      return;
+    }
+    const items = Array.from(lowBugs);
+    const [recordedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, recordedItem);
+
+    setLowBugs(items);
+    // console.log(users);
+  };
+
+  // -------------------------------------------------------------------------------------------------
+
+  // -------handle delete bugg-------------------------------------------------------------------------
+  const handleDeleteBug = (uid) => {
+    console.log("bug deleted", uid);
+
+    axios
+      .delete(`http://localhost:8080/deleteBug/${uid}`)
+      .then((res) => {
+        console.log(res);
+        getBugs();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    // alert("bug resolved");
   };
 
   return (
@@ -118,7 +166,7 @@ const Dashboard = () => {
             <h1>Critical severity</h1>
             <InitialFocus severity={"critical"} handleBug={handleBug} />
           </div>
-          <DragDropContext onDragEnd={handleDragEnd}>
+          <DragDropContext onDragEnd={handleDragEndCr}>
             <Droppable droppableId="bugs">
               {(provided) => (
                 <div
@@ -143,7 +191,9 @@ const Dashboard = () => {
                           <div>
                             <h2>{item.bugname}</h2>
                           </div>
-                          <BsFillTrash3Fill onClick={handleDeleteBug} />
+                          <BsFillTrash3Fill
+                            onClick={() => handleDeleteBug(item._id)}
+                          />
                         </div>
                       )}
                     </Draggable>
@@ -155,47 +205,136 @@ const Dashboard = () => {
           </DragDropContext>
         </div>
 
+        {/* major---severity -----------section */}
+
         <div className="major_tasks tasks_container">
           <div id="major" className="task_heading ">
             <h1>Major severity</h1>
             <InitialFocus severity={"major"} handleBug={handleBug} />
           </div>
-
-          <div className="critical_tasks">
-            {majorBugs?.map((item) => (
-              <div key={item.id} className="bugdiv">
-                {item.bugname}
-              </div>
-            ))}
-          </div>
+          <DragDropContext onDragEnd={handleDragEndMj}>
+            <Droppable droppableId="bugs">
+              {(provided) => (
+                <div
+                  className="bugs"
+                  {...provided.droppableProps}
+                  ref={provided.innerRef}
+                >
+                  {majorBugs?.map((item, index) => (
+                    <Draggable
+                      key={item.bugname}
+                      draggableId={item.bugname}
+                      index={index}
+                    >
+                      {(provided) => (
+                        <div
+                          className="bugdiv"
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                          ref={provided.innerRef}
+                        >
+                          <p> ID: {item.id}</p>
+                          <div>
+                            <h2>{item.bugname}</h2>
+                          </div>
+                          <BsFillTrash3Fill
+                            onClick={() => handleDeleteBug(item._id)}
+                          />
+                        </div>
+                      )}
+                    </Draggable>
+                  ))}
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
+          </DragDropContext>
         </div>
         <div className="medium_tasks tasks_container">
           <div id="medium" className="task_heading">
             <h1>Medium severity</h1>
             <InitialFocus severity={"medium"} handleBug={handleBug} />
           </div>
-
-          <div className="critical_tasks">
-            {mediumBugs?.map((item) => (
-              <div key={item.id} className="bugdiv">
-                {item.bugname}
-              </div>
-            ))}
-          </div>
+          <DragDropContext onDragEnd={handleDragEndMd}>
+            <Droppable droppableId="bugs">
+              {(provided) => (
+                <div
+                  {...provided.droppableProps}
+                  ref={provided.innerRef}
+                  className="critical_tasks bugs"
+                >
+                  {mediumBugs?.map((item, index) => (
+                    <Draggable
+                      key={item.bugname}
+                      draggableId={item.bugname}
+                      index={index}
+                    >
+                      {(provided) => (
+                        <div
+                          className="bugdiv"
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                          ref={provided.innerRef}
+                        >
+                          <p> ID: {item.id}</p>
+                          <div>
+                            <h2>{item.bugname}</h2>
+                          </div>
+                          <BsFillTrash3Fill
+                            onClick={() => handleDeleteBug(item._id)}
+                          />
+                        </div>
+                      )}
+                    </Draggable>
+                  ))}
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
+          </DragDropContext>
         </div>
         <div className="low_tasks tasks_container">
           <div id="low" className="task_heading">
             <h1>Low severity</h1>
             <InitialFocus severity={"low"} handleBug={handleBug} />
           </div>
-
-          <div className="critical_tasks">
-            {lowBugs?.map((item) => (
-              <div key={item.id} className="bugdiv">
-                {item.bugname}
-              </div>
-            ))}
-          </div>
+          <DragDropContext onDragEnd={handleDragEndLw}>
+            <Droppable droppableId="bugs">
+              {(provided) => (
+                <div
+                  {...provided.droppableProps}
+                  ref={provided.innerRef}
+                  className="critical_tasks"
+                >
+                  {lowBugs?.map((item, index) => (
+                    <Draggable
+                      key={item.bugname}
+                      draggableId={item.bugname}
+                      index={index}
+                    >
+                      {(provided) => (
+                        <div
+                          className="bugdiv"
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                          ref={provided.innerRef}
+                        >
+                          <p> ID: {item.id}</p>
+                          <div>
+                            <h2>{item.bugname}</h2>
+                          </div>
+                          <BsFillTrash3Fill
+                            onClick={() => handleDeleteBug(item._id)}
+                          />
+                        </div>
+                      )}
+                    </Draggable>
+                  ))}
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
+          </DragDropContext>
         </div>
       </div>
     </div>

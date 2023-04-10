@@ -9,7 +9,7 @@
   width: 85%;
   /* height: 70%; */
   height: auto;
-  background-color: rgb(192, 170, 170);
+  background-color: rgb(250, 164, 164);
   margin: 40px auto;
   display: flex;
   justify-content: space-around;
@@ -17,15 +17,16 @@
   position: absolute;
   left: 8%;
   right: 10%;
-  box-sizing: border-box;
+  /* box-sizing: border-box; */
   padding: 10px;
+  /* display: flex; */
 }
 .tasks_container {
   width: 22%;
   /* height: 80%; */
   height: auto;
   background-color: rgb(132, 132, 172);
-  margin: auto;
+  /* margin: auto; */
   border-radius: 12px;
   border: 3px solid black;
 }
@@ -61,11 +62,11 @@
 
 .critical_tasks {
   width: 95%;
-  height: auto;
-  border: 2px solid red;
+  /* height: auto; */
+  /* border: 2px solid red; */
   margin: auto;
-  display: flex;
-  flex-direction: column-reverse;
+  /* display: flex; */
+  /* flex-direction: column-reverse; */
 }
 .bugdiv {
   width: 95%;
