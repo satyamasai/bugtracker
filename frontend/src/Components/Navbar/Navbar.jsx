@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Navbar.css";
 import { FaAlignJustify, FaTimes } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button, useColorMode } from "@chakra-ui/react";
 import { FcFlashOn, FcFlashOff } from "react-icons/fc";
 
@@ -9,9 +9,15 @@ function Navbar() {
   const { colorMode, toggleColorMode } = useColorMode();
 
   const [toggleMenu, setToggleMenu] = useState(false);
-
+  const btToken = JSON.parse(localStorage.getItem("btToken"));
+  const navigate = useNavigate();
   const handleToggle = () => {
     setToggleMenu(!toggleMenu);
+  };
+
+  const handleLogout = () => {
+    localStorage.setItem("btToken", null);
+    navigate("/");
   };
 
   return (
@@ -29,14 +35,24 @@ function Navbar() {
           </Link>
         </li>
         <li>
-          <Link to="/login" onClick={handleToggle}>
-            Login
-          </Link>
+          {!btToken ? (
+            <Link to="/login" onClick={handleToggle}>
+              Login
+            </Link>
+          ) : (
+            ""
+          )}
         </li>
         <li>
-          <Link to="/signup" onClick={handleToggle}>
-            Signup
-          </Link>
+          {btToken ? (
+            <Button colorScheme="red" onClick={handleLogout}>
+              Logout
+            </Button>
+          ) : (
+            <Link to="/signup" onClick={handleToggle}>
+              Signup
+            </Link>
+          )}
         </li>
         <li>
           <Link to="/mydashboard" onClick={handleToggle}>

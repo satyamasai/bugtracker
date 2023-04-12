@@ -26,6 +26,7 @@ const navigate = useNavigate()
       .post("http://localhost:8080/user/login",userLoginData)
       .then((res) => {
         console.log(res);
+         localStorage.setItem("btToken",JSON.stringify(res.data.document.token))
         navigate("/mydashboard")
       })
       .catch((err) => {

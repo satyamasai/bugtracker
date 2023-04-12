@@ -179,13 +179,7 @@
   margin-bottom: 16px;
 }
 
-.home {
-  width: 100vw;
-  height: 1000vh;
-  /* height: auto; */
-  background-color: aqua;
-  position: relative;
-}
+
 .home > div {
   width: 60%;
   /* height: 80%; */

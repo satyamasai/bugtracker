@@ -22,7 +22,7 @@ const Dashboard = () => {
 
 
 
-console.log(allBugs,"ab")
+// console.log(allBugs,"ab")
 
   // -------------------fetching bugs from database-----------------
 
@@ -30,7 +30,7 @@ console.log(allBugs,"ab")
     axios
       .get("http://localhost:8080/getBugs")
       .then((res) => {
-        setAllBugs(res.data.allBugs);
+        setAllBugs(res.data.allBugs)
       })
       .catch((err) => console.log(err));
   };
