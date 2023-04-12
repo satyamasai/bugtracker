@@ -3,19 +3,16 @@ import "./Navbar.css";
 import { FaAlignJustify, FaTimes } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { Button, useColorMode } from "@chakra-ui/react";
+import { FcFlashOn, FcFlashOff } from "react-icons/fc";
 
 function Navbar() {
-  const { colorMode, toggleColorMode } = useColorMode()
+  const { colorMode, toggleColorMode } = useColorMode();
 
   const [toggleMenu, setToggleMenu] = useState(false);
- 
-
 
   const handleToggle = () => {
     setToggleMenu(!toggleMenu);
   };
-
- 
 
   return (
     <nav>
@@ -27,24 +24,32 @@ function Navbar() {
       </div>
       <ul className={toggleMenu ? "nav-links mobile" : "nav-links"}>
         <li>
-          <Link to="/" onClick={handleToggle}>Home</Link>
+          <Link to="/" onClick={handleToggle}>
+            Home
+          </Link>
         </li>
         <li>
-        <Link to="/login" onClick={handleToggle}>Login</Link>
+          <Link to="/login" onClick={handleToggle}>
+            Login
+          </Link>
         </li>
         <li>
-        <Link to="/signup" onClick={handleToggle}>Signup</Link>
+          <Link to="/signup" onClick={handleToggle}>
+            Signup
+          </Link>
         </li>
         <li>
-        <Link to="/mydashboard" onClick={handleToggle}>Dashboard</Link>
+          <Link to="/mydashboard" onClick={handleToggle}>
+            Dashboard
+          </Link>
         </li>
-       
-   
-       
       </ul>
-      <Button size="sm" colorScheme="blue" onClick={toggleColorMode}>
-      Toggle {colorMode === 'light' ? 'Dark' : 'Light'}
-    </Button>
+      {colorMode == "light" ? (
+        <FcFlashOff className="themeIcon" onClick={toggleColorMode} />
+      ) : (
+        <FcFlashOn className="themeIcon" onClick={toggleColorMode} />
+      )}
+
       <div className="menu-icon" onClick={handleToggle}>
         {toggleMenu ? <FaTimes /> : <FaAlignJustify />}
       </div>

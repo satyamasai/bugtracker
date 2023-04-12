@@ -1,13 +1,18 @@
+
+.themeIcon{
+  font-size: 24px;
+}
 nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
     height: 80px;
-    padding: 0 50px;
+    padding:5px;
     background-color:rgba(91, 91, 95, 0.959);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     color: white;
     /* position:fixed; */
+    /* border: 1px solid red; */
   }
   
   .logo h2 {
@@ -78,9 +83,9 @@ nav {
     .mobile {
       display: flex;
       flex-direction: column;
-      background-color: #91f1e6e8;
+      background-color: #d4e282e8;
       position: absolute;
-      top: 60px;
+      top: 74px;
       left: 0;
       right: 0;
       z-index: 1;
