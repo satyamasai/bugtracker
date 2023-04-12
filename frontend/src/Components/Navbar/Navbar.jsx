@@ -27,16 +27,16 @@ function Navbar() {
       </div>
       <ul className={toggleMenu ? "nav-links mobile" : "nav-links"}>
         <li>
-          <Link to="/">Home</Link>
+          <Link to="/" onClick={handleToggle}>Home</Link>
         </li>
         <li>
-        <Link to="/login">Login</Link>
+        <Link to="/login" onClick={handleToggle}>Login</Link>
         </li>
         <li>
-        <Link to="/signup">Signup</Link>
+        <Link to="/signup" onClick={handleToggle}>Signup</Link>
         </li>
         <li>
-        <Link to="/mydashboard">Dashboard</Link>
+        <Link to="/mydashboard" onClick={handleToggle}>Dashboard</Link>
         </li>
        
    

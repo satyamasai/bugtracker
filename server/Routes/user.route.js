@@ -3,7 +3,8 @@ const { Router } = require("express");
 const userController = Router();
 // const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const { userModel } = require("../Models/User.model");
+const { userModel } = require("../Models/user.model");
+
 // const { Authentication } = require("../Middlewares/Authentication");
 
 // user sign up --------------------------------------------
@@ -45,7 +46,7 @@ userController.post("/login", async (req, res) => {
         id: id,
         token: token,
       };
-      res.send({ msg: "Login successfull", document: document });
+      res.send({ msg: "Login successfull", document });
     } else {
       res.send({ msg: "Login failed" });
     }

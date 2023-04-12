@@ -3,7 +3,7 @@ const app = express();
 
 const cors = require("cors");
 const { connection } = require("./Config/db");
-const { userController } = require("./Routes/User.route");
+const { userController } = require("./Routes/user.route");
 const { bugController } = require("./Routes/bug.route");
 // const { adminController } = require("./Routes/Admin.route");
 app.use(express.json());

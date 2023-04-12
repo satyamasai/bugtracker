@@ -6,16 +6,23 @@ import axios from "axios";
 import { BsFillTrash3Fill } from "react-icons/bs";
 import InitialFocus from "../Components/Modal/Modal";
 import { Box, useToast } from "@chakra-ui/react";
+import { useDispatch, useSelector } from 'react-redux';
+import { addBug , getAllBugs } from "../Redux/Actions";
+
 
 const Dashboard = () => {
   const toast = useToast();
-  // const [bugname, setBugname] = useState("");
+
   const [allBugs, setAllBugs] = useState([]);
   const [criticalBugs, setCriticalBugs] = useState([]);
   const [majorBugs, setMajorBugs] = useState([]);
   const [mediumBugs, setMediumBugs] = useState([]);
   const [lowBugs, setLowBugs] = useState([]);
-  // const [totalCount, setTotalCount] = useState(allBugs[allBugs.length-1]?.id);
+ 
+
+
+
+console.log(allBugs,"ab")
 
   // -------------------fetching bugs from database-----------------
 
@@ -28,40 +35,47 @@ const Dashboard = () => {
       .catch((err) => console.log(err));
   };
 
+const dispatch = useDispatch()
   useEffect(() => {
     getBugs();
-  }, []);
+    // getAllBugs(dispatch)
+  },[]);
+
+
+useEffect(()=>{
+
+},[allBugs])
 
   //---------------adding bug in database----------------------------------------------------------------------
   //---------------adding bug in database----------------------------------------------------------------------
   const handleBug = (severity, bugname) => {
     const bugData = { severity, bugname };
+           addBug(dispatch,bugData)
+    // axios
+    //   .post("http://localhost:8080/addbug", bugData)
 
-    axios
-      .post("http://localhost:8080/addbug", bugData)
-
-      .then((res) => {
-        console.log(res.data);
-        // setTotalCount(((++allBugs[allBugs.length-1].id)))
-        toast({
-          title: "Alert",
-          description: `${res.data.msg}`,
-          status: "success",
-          duration: 9000,
-          isClosable: true,
-        });
-        bugname=""
-        getBugs();
-      })
-      .catch((err) => {
-        console.log(err);
-        toast({
-          title: "Alert",
-          status: err.status,
-          description: err.response.data.msg,
-          isClosable: true,
-        });
-      });
+    //   .then((res) => {
+    //     console.log(res.data);
+    //     // setTotalCount(((++allBugs[allBugs.length-1].id)))
+    //     toast({
+    //       title: "Alert",
+    //       description: `${res.data.msg}`,
+    //       status: "success",
+    //       duration: 9000,
+    //       isClosable: true,
+    //     });
+    //     bugname=""
+    //     getBugs();
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //     toast({
+    //       title: "Alert",
+    //       status: err.status,
+    //       description: err.response.data.msg,
+    //       isClosable: true,
+    //     });
+    //   });
   };
   // ------------- setting bugs in there ,context--------------------------
   // console.log(allBugs);
@@ -158,7 +172,7 @@ const Dashboard = () => {
         console.log(err);
       });
 
-    // alert("bug resolved");
+    alert("bug resolved");
   };
 
   return (

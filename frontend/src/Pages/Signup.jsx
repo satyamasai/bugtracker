@@ -37,10 +37,10 @@ const Signup = () => {
 
     console.log(userData);
 
-    axios.post("http://localhost:3005/signup",userData)
+    axios.post("http://localhost:8080/user/signup",userData)
     .then((res)=>{
-        let usermsg = res.json()
-        console.log(usermsg)
+        // let usermsg = res.json()
+        console.log(res)
     })
     .catch((err)=>{
         console.log(err)
