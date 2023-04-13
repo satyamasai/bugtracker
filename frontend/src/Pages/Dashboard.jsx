@@ -20,7 +20,7 @@ const Dashboard = () => {
   const [lowBugs, setLowBugs] = useState([]);
  
 
-
+const BugToken= JSON.parse(localStorage.getItem('btToken'))
 
 // console.log(allBugs,"ab")
 
@@ -28,8 +28,14 @@ const Dashboard = () => {
 
   const getBugs = () => {
     axios
-      .get("http://localhost:8080/getBugs")
+      .get("http://localhost:8080/getBugs",
+       {
+        headers: {
+          'Authorization': `Bearer ${BugToken}`
+        }
+      })
       .then((res) => {
+        console.log(res.data.allBugs)
         setAllBugs(res.data.allBugs)
       })
       .catch((err) => console.log(err));
@@ -50,9 +56,14 @@ useEffect(()=>{
   //---------------adding bug in database----------------------------------------------------------------------
   const handleBug = (severity, bugname) => {
     const bugData = { severity, bugname };
+
           //  addBug(dispatch,bugData)
     axios
-      .post("http://localhost:8080/addbug", bugData)
+      .post("http://localhost:8080/addbug", bugData, {
+        headers: {
+          'Authorization': `Bearer ${BugToken}`
+        }
+      })
 
       .then((res) => {
         console.log(res.data);

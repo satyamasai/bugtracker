@@ -1,5 +1,5 @@
 const { Router } = require("express");
-// require("dotenv").config();
+require("dotenv").config();
 const userController = Router();
 // const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -10,7 +10,8 @@ const { userModel } = require("../Models/user.model");
 // user sign up --------------------------------------------
 // --------------------------------------------------------------
 userController.post("/signup", async (req, res) => {
-  const { email, password, name } = req.body;
+  const { email, password, firstname,lastname } = req.body;
+  // console.log(email,name,password)
   const existing_user = await userModel.findOne({ email });
 
   if (existing_user) {
@@ -21,7 +22,8 @@ userController.post("/signup", async (req, res) => {
   const new_user = new userModel({
     email,
     password,
-    name,
+    firstname,
+    lastname
   });
 
   await new_user.save();
@@ -36,7 +38,7 @@ userController.post("/login", async (req, res) => {
   if (user) {
     const user_id = user._id;
     if (user.password == password && user.email == email) {
-      const token = jwt.sign({ user_id }, "kittu1516");
+      const token = jwt.sign({ user_id }, process.env.SECRET);
 
       const email = user.email;
       const id = user._id;
@@ -51,7 +53,7 @@ userController.post("/login", async (req, res) => {
       res.send({ msg: "Login failed" });
     }
   } else {
-    res.send({
+    res.status(500).send({
       msg: "User not found ..please login with correct credentials..",
     });
   }

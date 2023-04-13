@@ -1,10 +1,12 @@
 const { Router } = require("express");
 const { bugModel } = require("../Models/bug.model");
+const { Authentication } = require("../Middlewares/authenication");
 
 const bugController = Router();
 // -----------------------------------adding bug in database----------------
-bugController.post("/addbug", async (req, res) => {
-  const { bugname, severity,totalCount } = req.body;
+// --------------ADDING THE BUGGGGGG---------------------------------------------------------------
+bugController.post("/addbug",Authentication, async (req, res) => {
+  const { bugname, severity ,user_id} = req.body;
   // console.log(bugname, severity,totalCount, "this is data");
   const existing_bug = await bugModel.findOne({ bugname });
 
@@ -17,7 +19,8 @@ bugController.post("/addbug", async (req, res) => {
     const newBug = new bugModel({
       bugname,
       severity,
-      id: totalCount
+      user_id
+      
     });
 
     await newBug.save();
@@ -28,8 +31,11 @@ bugController.post("/addbug", async (req, res) => {
 });
 // -----------------------------------Fetching bug in database----------------
 
-bugController.get("/getBugs", async(req, res) => {
-  const allBugs = await bugModel.find();
+bugController.get("/getBugs",Authentication, async(req, res) => {
+  const {user_id } = req.body
+  console.log(user_id,"ui")
+  const allBugs = await bugModel.find({user_id});
+
 
   res.send({ allBugs });
 });

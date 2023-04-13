@@ -29,8 +29,8 @@ const Signup = () => {
   // ------------handle signup------------------------------------------------------------
   const handleSignup = () => {
     let userData = {
-      "first name": firstName,
-      "last name": lastName,
+      "firstname": firstName,
+      "lastname": lastName,
       email,
       password,
     };

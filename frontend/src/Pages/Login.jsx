@@ -11,10 +11,13 @@ import {
   Link,
   Stack,
   Image,
+  useToast,
 } from "@chakra-ui/react";
 import axios from "axios";
 
 const Login = () => {
+  const toast = useToast();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 const navigate = useNavigate()
@@ -26,11 +29,25 @@ const navigate = useNavigate()
       .post("http://localhost:8080/user/login",userLoginData)
       .then((res) => {
         console.log(res);
+        toast({
+          title: "Alert",
+          description: `${res.data.msg}`,
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
          localStorage.setItem("btToken",JSON.stringify(res.data.document.token))
-        navigate("/mydashboard")
+         navigate("/mydashboard")
       })
       .catch((err) => {
         console.log(err);
+        toast({
+          title: "Alert",
+          description: `${err.response.data.msg}`,
+          status:"error",
+          duration: 3000,
+          isClosable: true,
+        });
       });
   };
   return (
