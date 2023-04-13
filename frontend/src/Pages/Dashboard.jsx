@@ -50,32 +50,32 @@ useEffect(()=>{
   //---------------adding bug in database----------------------------------------------------------------------
   const handleBug = (severity, bugname) => {
     const bugData = { severity, bugname };
-           addBug(dispatch,bugData)
-    // axios
-    //   .post("http://localhost:8080/addbug", bugData)
+          //  addBug(dispatch,bugData)
+    axios
+      .post("http://localhost:8080/addbug", bugData)
 
-    //   .then((res) => {
-    //     console.log(res.data);
-    //     // setTotalCount(((++allBugs[allBugs.length-1].id)))
-    //     toast({
-    //       title: "Alert",
-    //       description: `${res.data.msg}`,
-    //       status: "success",
-    //       duration: 9000,
-    //       isClosable: true,
-    //     });
-    //     bugname=""
-    //     getBugs();
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //     toast({
-    //       title: "Alert",
-    //       status: err.status,
-    //       description: err.response.data.msg,
-    //       isClosable: true,
-    //     });
-    //   });
+      .then((res) => {
+        console.log(res.data);
+        // setTotalCount(((++allBugs[allBugs.length-1].id)))
+        toast({
+          title: "Alert",
+          description: `${res.data.msg}`,
+          status: "success",
+          duration: 9000,
+          isClosable: true,
+        });
+        bugname=""
+        getBugs();
+      })
+      .catch((err) => {
+        console.log(err);
+        toast({
+          title: "Alert",
+          status: err.status,
+          description: err.response.data.msg,
+          isClosable: true,
+        });
+      });
   };
   // ------------- setting bugs in there ,context--------------------------
   // console.log(allBugs);
