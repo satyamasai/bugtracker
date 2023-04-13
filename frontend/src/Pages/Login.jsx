@@ -33,7 +33,7 @@ const navigate = useNavigate()
           title: "Alert",
           description: `${res.data.msg}`,
           status: "success",
-          duration: 3000,
+          duration: 2000,
           isClosable: true,
         });
          localStorage.setItem("btToken",JSON.stringify(res.data.document.token))

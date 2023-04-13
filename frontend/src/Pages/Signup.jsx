@@ -16,9 +16,11 @@ import {
   Text,
   useColorModeValue,
   Link,
+  useToast,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -26,6 +28,9 @@ const Signup = () => {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const toast = useToast();
+  const navigate = useNavigate()
+
   // ------------handle signup------------------------------------------------------------
   const handleSignup = () => {
     let userData = {
@@ -41,6 +46,14 @@ const Signup = () => {
     .then((res)=>{
         // let usermsg = res.json()
         console.log(res)
+        toast({
+          title: "Alert",
+          description: `${res.data.msg}`,
+          status: "success",
+          duration: 2000,
+          isClosable: true,
+        });
+        navigate("/login")
     })
     .catch((err)=>{
         console.log(err)
