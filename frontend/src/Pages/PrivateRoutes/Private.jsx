@@ -14,7 +14,7 @@ const Private = ({ children }) => {
         title: 'You are not logged in to access dashboard.',
         description: "Please sign in first",
         status: 'error',
-        duration: 9000,
+        duration: 2000,
         isClosable: true,
       })
   }

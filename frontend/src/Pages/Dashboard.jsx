@@ -28,7 +28,7 @@ const BugToken= JSON.parse(localStorage.getItem('btToken'))
 
   const getBugs = () => {
     axios
-      .get("http://localhost:8080/getBugs",
+      .get("https://bugtracker-nr98.onrender.com/getBugs",
        {
         headers: {
           'Authorization': `Bearer ${BugToken}`
@@ -59,7 +59,7 @@ useEffect(()=>{
 
           //  addBug(dispatch,bugData)
     axios
-      .post("http://localhost:8080/addbug", bugData, {
+      .post("https://bugtracker-nr98.onrender.com/addbug", bugData, {
         headers: {
           'Authorization': `Bearer ${BugToken}`
         }
@@ -174,7 +174,7 @@ useEffect(()=>{
     console.log("bug deleted", uid);
 
     axios
-      .delete(`http://localhost:8080/deleteBug/${uid}`)
+      .delete(`https://bugtracker-nr98.onrender.com/deleteBug/${uid}`)
       .then((res) => {
         console.log(res);
         getBugs();

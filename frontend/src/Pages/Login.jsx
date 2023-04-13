@@ -26,7 +26,7 @@ const navigate = useNavigate()
       email,password
     }
     axios
-      .post("http://localhost:8080/user/login",userLoginData)
+      .post("https://bugtracker-nr98.onrender.com/user/login",userLoginData)
       .then((res) => {
         console.log(res);
         toast({

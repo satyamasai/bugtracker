@@ -1,23 +1,8 @@
 import React, { useState } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
-let list = [
-  {
-    id: 1,
-    bugname: "king",
-    severity: "critical",
-  },
-  {
-    id: 2,
-    bugname: "queen",
-    severity: "critical",
-  },
-  { id: 3, bugname: "rancho", severity: "critical" },
-  { id: 4, bugname: "virus", severity: "critical" },
-  { id: 5, bugname: "farhan", severity: "critical" },
-];
 const DragPage = () => {
-  const [users, setUsers] = useState(list);
+  const [users, setUsers] = useState([]);
 
   const handleDragEnd = (result) => {
     const items = Array.from(users);

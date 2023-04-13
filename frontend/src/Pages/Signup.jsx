@@ -37,7 +37,7 @@ const Signup = () => {
 
     console.log(userData);
 
-    axios.post("http://localhost:8080/user/signup",userData)
+    axios.post("https://bugtracker-nr98.onrender.com/user/signup",userData)
     .then((res)=>{
         // let usermsg = res.json()
         console.log(res)

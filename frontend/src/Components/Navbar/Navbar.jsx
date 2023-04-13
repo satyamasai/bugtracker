@@ -17,6 +17,7 @@ function Navbar() {
 
   const handleLogout = () => {
     localStorage.setItem("btToken", null);
+    handleToggle()
     navigate("/");
   };
 
